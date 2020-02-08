@@ -1,0 +1,22 @@
+#@retail@
+## Interface: 80300
+#@end-retail@
+#@non-retail@
+# ## Interface: 11303
+#@end-non-retail@
+## Title: Hojicha
+## Notes: A main actionbar replacement
+## Author: Tuller
+## Version: @project-version@
+## SavedVariables: HojichaDB
+## OptionalDeps: Ace3, LibKeyBound-1.0, LibSharedMedia-3.0, Masque, FlyPaper
+# addon driver
+embeds.xml
+localization.xml
+Hojicha.lua
+
+# bits required for the addon to work properly
+core/hideBlizzardUI.lua
+core/fixMultiActionBars.lua
+
+# modules
