@@ -29,4 +29,5 @@ dsl/core.lua
 dsl/actionBar.lua
 dsl/bags.lua
 dsl/menu.lua
+dsl/pet.lua
 dsl/stance.lua
