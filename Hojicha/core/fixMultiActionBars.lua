@@ -64,7 +64,7 @@ if Addon:IsBuild("classic") then
 				local button = _G[buttonName]
 				if button then
 					button:SetAttribute("showgrid", showgrid)
-					Addon.ActionButton.UpdateGrid(button)
+					-- Addon.ActionButton.UpdateGrid(button)
 				end
 			end
 		end
@@ -73,13 +73,13 @@ if Addon:IsBuild("classic") then
 	function MultiBarFixer:GetShowgridState()
 		local result = self.showgrid or 0
 
-		if Addon:ShowGrid() then
-			result = result + 1
-		end
+		-- if Addon:ShowGrid() then
+		-- 	result = result + 1
+		-- end
 
-		if Addon:IsBindingModeEnabled() then
-			result = result + 1
-		end
+		-- if Addon:IsBindingModeEnabled() then
+		-- 	result = result + 1
+		-- end
 
 		return result
 	end

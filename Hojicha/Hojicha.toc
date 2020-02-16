@@ -15,8 +15,17 @@ embeds.xml
 localization.xml
 Hojicha.lua
 
-# bits required for the addon to work properly
+# core bits
 core/hideBlizzardUI.lua
 core/fixMultiActionBars.lua
+core/bindableButton.lua
+core/actionButton.lua
+core/uiParent.lua
+core/bar.lua
+core/buttonBar.lua
 
-# modules
+# layout DSL
+dsl/core.lua
+dsl/actionBar.lua
+dsl/bags.lua
+dsl/menu.lua
