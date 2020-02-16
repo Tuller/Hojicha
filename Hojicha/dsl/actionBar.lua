@@ -4,8 +4,7 @@ local ActionButton = Addon.ActionButton
 local NUM_ACTION_BARS = 12
 
 local DEFAULTS = {
-    size = 12,
-    point = "BOTTOM"
+    size = 12
 }
 
 local function addActionButtons(bar)
