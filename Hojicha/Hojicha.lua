@@ -12,7 +12,8 @@ function Addon:OnEnable()
 		ab { id = 3, columns = 1, point = "RIGHT" },
 		ab { id = 4, columns = 1, point = "RIGHT", x = -38 },
 		bags { point = "BOTTOMRIGHT", y = 40 },
-		menu { point = "BOTTOMRIGHT" }
+		menu { point = "BOTTOMRIGHT" },
+		stance { point = "BOTTOMRIGHT", x = 38 * -6, y = 38 * 2 }
 	]])
 end
 
