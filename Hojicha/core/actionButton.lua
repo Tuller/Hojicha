@@ -78,7 +78,7 @@ function ActionButton:Acquire(id)
 		-- button:UpdateCount()
 		-- button:UpdateShowEquippedItemBorders()
 
-		self.active[id] = button
+		active[id] = button
 	end
 
 	return button
@@ -290,6 +290,19 @@ function ActionButton:LoadAction()
 	local id = state and self:GetAttribute("action--" .. state) or self:GetAttribute("action--base")
 
 	self:SetAttribute("action", id)
+end
+
+function ActionButton:ForAll(method, ...)
+	if type(method) ~= "string" then
+		error("Usage: ActionButton:ForAll(\"method\", ...args)", 2)
+	end
+
+	for _, button in pairs(active) do
+		local func = button[method]
+		if type(func) == "function" then
+			func(button, ...)
+		end
+	end
 end
 
 -- exports

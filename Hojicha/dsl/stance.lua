@@ -16,7 +16,7 @@ if not (
 	return
 end
 
-local StanceButton, StanceButton_MT = Addon:CreateClass("CheckButton", Addon.BindableButton)
+local StanceButton, StanceButton_MT = Addon:CreateWidgetClass("CheckButton", Addon.BindableButton)
 do
 	local unused = {}
 
@@ -77,7 +77,7 @@ local function updateLayout(bar)
 	end
 
 	-- remove buttons no longer in use
-	for i = oldLength, newLength - 1, -1 do
+	for i = oldLength, newLength + 1, -1 do
 		buttons[i]:Release()
 		tremove(buttons, i)
 	end
@@ -86,7 +86,13 @@ local function updateLayout(bar)
 	for i = oldLength + 1, newLength do
 		tinsert(buttons, StanceButton:Acquire(i))
 	end
+
+	Addon:ApplyGridLayout(bar)
 end
+
+local DEFAULTS = {
+	id = "stance"
+}
 
 Addon.Layout.stance = function(options)
     options = Addon:CopyDefaults(options, DEFAULTS)

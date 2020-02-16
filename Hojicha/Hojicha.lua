@@ -13,7 +13,7 @@ function Addon:OnEnable()
 		ab { id = 4, columns = 1, point = "RIGHT", x = -38 },
 		bags { point = "BOTTOMRIGHT", y = 40 },
 		menu { point = "BOTTOMRIGHT" },
-		stance { point = "BOTTOMRIGHT", x = 38 * -6, y = 38 * 2 }
+		stance { point = "BOTTOM", x = 38 * -5, y = 40 * 2 }
 	]])
 end
 
