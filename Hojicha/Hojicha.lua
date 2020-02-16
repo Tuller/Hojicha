@@ -7,9 +7,11 @@ local AddonName, Addon = ...
 
 function Addon:OnEnable()
 	self:Layout([[
-		actionBar { id = 1, point = "BOTTOM" },
-		actionBar { id = 2, point = "BOTTOM", y = 36 },
-		bags { point = "BOTTOMRIGHT", y = 36 },
+		ab { id = 1, point = "BOTTOM" },
+		ab { id = 2, point = "BOTTOM", y = 38 },
+		ab { id = 3, columns = 1, point = "RIGHT" },
+		ab { id = 4, columns = 1, point = "RIGHT", x = -38 },
+		bags { point = "BOTTOMRIGHT", y = 40 },
 		menu { point = "BOTTOMRIGHT" }
 	]])
 end

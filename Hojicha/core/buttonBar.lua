@@ -11,16 +11,31 @@ local BUTTON_BAR_DEFAULTS = {
 	buttons = {}
 }
 
-function Addon:CreatButtonBar(options)
+function Addon:CreateButtonBar(options)
     options = self:CopyDefaults(options, BUTTON_BAR_DEFAULTS)
 
 	return self:CreateBar(options)
 end
 
+function Addon:GetButtonSize(bar)
+	local _, button = next(bar.state.buttons)
+
+	if button then
+		local w, h = button:GetSize()
+		local l, r, t, b = self:GetButtonInsets(bar)
+
+		return w - (l + r), h - (t + b)
+	end
+
+	return 0, 0
+end
+
 function Addon:GetButtonInsets(bar)
+	local _, button = next(bar.state.buttons)
+
 	local l, r, t, b
-	if #bar.state.buttons >= 1 then
-		l, r, t, b = bar.state.buttons[1]:GetHitRectInsets()
+	if button then
+		l, r, t, b = button:GetHitRectInsets()
 	else
 		l, r, t, b = 0, 0, 0, 0
 	end
@@ -33,23 +48,23 @@ end
 
 function Addon:ApplyGridLayout(bar)
 	local state = bar.state
-    local numButtons = #state.buttons
+    local length = #state.buttons
 
 	local cols
 	if state.columns > 0 then
-		cols = min(state.columns, numButtons)
+		cols = min(state.columns, length)
 	else
-		cols = numButtons
+		cols = length
 	end
 
-	local rows = ceil(numButtons / cols)
+	local rows = ceil(length / cols)
 
 	local isLeftToRight = state.leftToRight
 	local isTopToBottom = state.topToBottom
 
 	-- grab base button sizes
-	local l, _, t, _ = self:GetButtonInsets(state)
-	local bW, bH = unpack(state.buttonSize)
+	local l, r, t, b = self:GetButtonInsets(bar)
+	local bW, bH = self:GetButtonSize(bar)
 	local pW, pH = unpack(state.padding)
 	local spacing = state.spacing
 
@@ -60,7 +75,7 @@ function Addon:ApplyGridLayout(bar)
 	local yOff = pH - t
 
 	-- place buttons
-    for i = 1, numButtons do
+    for i = 1, length do
         local button = state.buttons[i]
 
 		local row = floor((i - 1) / cols)

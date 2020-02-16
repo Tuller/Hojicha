@@ -1,12 +1,11 @@
 local AddonName, Addon = ...
 
-local BAG_DEFAULTS = {
+local DEFAULTS = {
     id = "bags",
     point = "BOTTOMRIGHT",
     oneBag = false,
     keyRing = true,
-    spacing = 2,
-    buttons = {}
+    spacing = 2
 }
 
 local function showKeyRing(state)
@@ -101,7 +100,7 @@ local function addBagButtons(bar)
 end
 
 Addon.Layout.bags = function(options)
-    options = Addon:CopyDefaults(options, BAG_DEFAULTS)
+    options = Addon:CopyDefaults(options, DEFAULTS)
 
     local bar = Addon:CreateButtonBar(options)
 

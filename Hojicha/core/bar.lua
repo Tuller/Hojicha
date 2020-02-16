@@ -1,6 +1,6 @@
 local _, Addon = ...
 
-local BAR_DEFAULTS = {
+local DEFAULTS = {
     show = true,
 
     scale = 1,
@@ -45,9 +45,14 @@ local function setPosition(bar, point, x, y)
 end
 
 function Addon:CreateBar(options)
-    options = self:CopyDefaults(options, BAR_DEFAULTS)
+    options = self:CopyDefaults(options, DEFAULTS)
 
-    local bar = CreateFrame("Frame", ("%sBar%s"):format(self:GetName(), options.id), self.UIParent, "SecureHandlerAttributeTemplate")
+    local bar = CreateFrame(
+        "Frame",
+        ("%sBar%s"):format(self:GetName(), options.id),
+        self.UIParent,
+        "SecureHandlerAttributeTemplate"
+    )
 
     bar.id = options.id
     bar.state = self:CopyDefaults({}, options)

@@ -181,14 +181,15 @@ end
 -- Layout Function
 --------------------------------------------------------------------------------
 
-local MENU_BAR_DEFAULTS = {
+local DEFAULTS = {
 	id = "menu",
+	insets = {0, 1, 3, 0},
 	disabledButtons = {},
 	overrideUIButtons = {}
 }
 
 Addon.Layout.menu = function(options)
-	options = Addon:CopyDefaults(options, MENU_BAR_DEFAULTS)
+	options = Addon:CopyDefaults(options, DEFAULTS)
 
 	local bar = Addon:CreateButtonBar(options)
 

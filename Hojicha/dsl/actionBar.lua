@@ -2,22 +2,23 @@ local _, Addon = ...
 local Layout = Addon.Layout
 local ActionButton = Addon.ActionButton
 
-local ACTION_BAR_DEFAULTS = {
+local DEFAULTS = {
     size = 12,
     point = "BOTTOM"
 }
 
 local function addActionButtons(bar)
     for i = 1, bar.state.size do
-        local id = i + 12 * (bar.state.id - 1)
-        local button = ActionButton:Acquire(id)
+        local actionId = i + 12 * (bar.state.id - 1)
 
-        tinsert(bar.state.buttons, button)
+        tinsert(bar.state.buttons, ActionButton:Acquire(actionId))
     end
 end
 
 Layout.actionBar = function(options)
-    local bar = Addon:CreateButtonBar(options, ACTION_BAR_DEFAULTS)
+    options = Addon:CopyDefaults(options, DEFAULTS)
+
+    local bar = Addon:CreateButtonBar(options)
 
     addActionButtons(bar)
 
@@ -25,3 +26,5 @@ Layout.actionBar = function(options)
 
     return bar
 end
+
+Layout.ab = Layout.actionBar
