@@ -6,16 +6,16 @@ local AddonName, Addon = ...
 local ActionButton, ActionButton_MT = Addon:CreateWidgetClass("CheckButton", Addon.BindableButton)
 local HiddenFrame = Addon:CreateHiddenFrame("Frame")
 
-ActionButton.unused = {}
-ActionButton.active = {}
+local unused = {}
+local active = {}
 
-local function CreateActionButton(id)
+local function createActionButton(id)
 	local name = ("%sActionButton%d"):format(AddonName, id)
 
 	return CreateFrame("CheckButton", name, nil, "ActionBarButtonTemplate")
 end
 
-local function GetOrCreateActionButton(id)
+local function getOrCreateActionButton(id)
 	if id <= 12 then
 		local b = _G[("ActionButton%d"):format(id)]
 
@@ -24,7 +24,7 @@ local function GetOrCreateActionButton(id)
 		-- luacheck: pop
 		return b
 	elseif id <= 24 then
-		return CreateActionButton(id - 12)
+		return createActionButton(id - 12)
 	elseif id <= 36 then
 		return _G[("MultiBarRightButton%d"):format(id - 24)]
 	elseif id <= 48 then
@@ -34,7 +34,7 @@ local function GetOrCreateActionButton(id)
 	elseif id <= 72 then
 		return _G[("MultiBarBottomLeftButton%d"):format(id - 60)]
 	else
-		return CreateActionButton(id - 60)
+		return createActionButton(id - 60)
 	end
 end
 
@@ -85,7 +85,7 @@ function ActionButton:Acquire(id)
 end
 
 function ActionButton:Create(id)
-	local button = GetOrCreateActionButton(id)
+	local button = getOrCreateActionButton(id)
 
 	if button then
 		button = setmetatable(button, ActionButton_MT)
@@ -111,14 +111,14 @@ function ActionButton:Create(id)
 end
 
 function ActionButton:Restore(id)
-	local button = self.unused[id]
+	local button = unused[id]
 
 	if button then
-		self.unused[id] = nil
+		unused[id] = nil
 
 		button:SetAttribute("statehidden", nil)
 
-		self.active[id] = button
+		active[id] = button
 		return button
 	end
 end
@@ -126,7 +126,7 @@ end
 function ActionButton:Release()
 	local id = self:GetAttribute("action--base")
 
-	self.active[id] = nil
+	active[id] = nil
 
 	-- Addon:GetModule('Tooltips'):Unregister(self)
 	-- Addon.BindingsController:Unregister(self)
@@ -135,7 +135,7 @@ function ActionButton:Release()
 	self:SetParent(HiddenFrame)
 	self:Hide()
 
-	self.unused[id] = self
+	unused[id] = self
 end
 
 -- override the old update hotkeys function
@@ -255,6 +255,7 @@ end
 
 -- macro text
 function ActionButton:ShowingMacroText()
+	return false
 end
 
 function ActionButton:UpdateMacro()
@@ -266,9 +267,7 @@ function ActionButton:UpdateMacro()
 end
 
 function ActionButton:SetFlyoutDirection(direction)
-	if InCombatLockdown() then
-		return
-	end
+	if InCombatLockdown() then return end
 
 	self:SetAttribute("flyoutDirection", direction)
 	ActionButton_UpdateFlyout(self)

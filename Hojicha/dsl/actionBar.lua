@@ -1,6 +1,8 @@
 local _, Addon = ...
 local ActionButton = Addon.ActionButton
 
+local NUM_ACTION_BARS = 12
+
 local DEFAULTS = {
     size = 12,
     point = "BOTTOM"
@@ -8,7 +10,7 @@ local DEFAULTS = {
 
 local function addActionButtons(bar)
     for i = 1, bar.state.size do
-        local actionId = i + 12 * (bar.state.id - 1)
+        local actionId = i + (NUM_ACTION_BARS * (bar.state.id - 1))
 
         tinsert(bar.state.buttons, ActionButton:Acquire(actionId))
     end
