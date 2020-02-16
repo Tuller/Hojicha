@@ -16,7 +16,8 @@ function Addon:OnEnable()
 		stance { point = "BOTTOM", x = 38 * -5, y = 40 * 2 },
 		pet { point = "BOTTOM", y = 40 * 2 },
 		extra {},
-		zone {}
+		zone {},
+		vehicle {}
 	]])
 end
 

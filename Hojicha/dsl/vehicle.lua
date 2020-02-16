@@ -37,8 +37,8 @@ hooksecurefunc(
 local DEFAULTS = {
 	id = "vehicle",
 	point = "BOTTOM",
-	y = 160,
-	x = 40 * 5.5
+	y = 40 * 2,
+	x = 40 * 5
 }
 
 local function addMainMenuBarVehicleLeaveButton(bar)
@@ -50,7 +50,7 @@ local function addMainMenuBarVehicleLeaveButton(bar)
 	MainMenuBarVehicleLeaveButton:SetPoint("CENTER")
 end
 
-Addon.Layout.zone = function(options)
+Addon.Layout.vehicle = function(options)
 	options = Addon:CopyDefaults(options, DEFAULTS)
 
     VehicleBar = Addon:CreateBar(options)
@@ -60,4 +60,4 @@ Addon.Layout.zone = function(options)
     return VehicleBar
 end
 
-Addon.Layout.zoneBar = Addon.Layout.zone
+Addon.Layout.vehicleBar = Addon.Layout.vehicle

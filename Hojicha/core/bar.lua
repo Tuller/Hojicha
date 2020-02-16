@@ -67,5 +67,9 @@ function Addon:CreateBar(options)
     bg:SetColorTexture(178 / 255, 56 / 255, 5 / 255, 0.5)
     bg:SetAllPoints(bar)
 
+    local fs = bar:CreateFontString(nil, "ARTWORK", "GameFontNormal")
+    fs:SetPoint("CENTER")
+    fs:SetText(options.id)
+
     return bar
 end

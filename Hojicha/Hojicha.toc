@@ -32,5 +32,5 @@ dsl/extra.lua
 dsl/menu.lua
 dsl/pet.lua
 dsl/stance.lua
-# dsl/vehicle.lua
+dsl/vehicle.lua
 dsl/zone.lua
