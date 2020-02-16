@@ -10,16 +10,6 @@ function env.render(layout)
         tinsert(frames, layout[i])
     end
 
-    -- position them
-    -- for _, frame in pairs(frames) do
-    --     frame:ClearAllPoints()
-    --     frame:SetPoint(
-    --         frame:GetAttribute("point"),
-    --         frame:GetAttribute("x"),
-    --         frame:GetAttribute("y")
-    --     )
-    -- end
-
     -- return the frames we generated
     return frames
 end
