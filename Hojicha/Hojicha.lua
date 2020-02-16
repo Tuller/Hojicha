@@ -14,7 +14,9 @@ function Addon:OnEnable()
 		bags { point = "BOTTOMRIGHT", y = 40 },
 		menu { point = "BOTTOMRIGHT" },
 		stance { point = "BOTTOM", x = 38 * -5, y = 40 * 2 },
-		pet { point = "BOTTOM", y = 40 * 2 }
+		pet { point = "BOTTOM", y = 40 * 2 },
+		extra {},
+		zone {}
 	]])
 end
 
@@ -87,6 +89,25 @@ function Addon:CopyDefaults(tbl, defaults)
 	end
 
 	return tbl
+end
+
+-- somewhere between a debounce and a throttle
+function Addon:Defer(func, delay, ...)
+	delay = delay or 0
+
+	local waiting = false
+
+	local function callback(...)
+		func(...)
+		waiting = false
+	end
+
+	return function()
+		if not waiting then
+			waiting = true
+			_G.C_Timer.After(delay or 0, callback)
+		end
+	end
 end
 
 --------------------------------------------------------------------------------

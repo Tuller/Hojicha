@@ -22,6 +22,8 @@ function env.printf(...)
     return Addon:Printf(...)
 end
 
+function env.noop() end
+
 Addon.Layout = setmetatable({}, {
     __index = function(self, k)
         return env[k]

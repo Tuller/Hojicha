@@ -1,10 +1,11 @@
 local _, Addon = ...
 local ActionButton = Addon.ActionButton
 
-local NUM_ACTION_BARS = 12
+local NUM_ACTION_BARS = 10
+local NUM_ACTION_BUTTONS_PER_BAR = 120 / NUM_ACTION_BARS
 
 local DEFAULTS = {
-    size = 12
+    size = NUM_ACTION_BUTTONS_PER_BAR
 }
 
 local function addActionButtons(bar)

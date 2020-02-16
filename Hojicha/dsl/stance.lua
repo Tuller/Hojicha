@@ -9,10 +9,8 @@ if not (
 	or (not Addon:IsBuild("classic") and PLAYER_CLASS == 'PRIEST')
 	or (Addon:IsBuild("classic") and (PLAYER_CLASS == 'WARRIOR' or PLAYER_CLASS == 'PALADIN'))
 ) then
-	local function noop() return end
-
-	Addon.Layout.stance = noop
-	Addon.Layout.class = noop
+	Addon.Layout.stance = Addon.Layout.noop
+	Addon.Layout.class = Addon.Layout.noop
 	return
 end
 

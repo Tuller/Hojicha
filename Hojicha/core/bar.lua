@@ -62,8 +62,9 @@ function Addon:CreateBar(options)
     setPosition(bar, options.point, options.x, options.y)
     setOpacity(bar, options.opacity)
 
+    -- RGBA(178, 56, 5, 1)
     local bg = bar:CreateTexture(nil, "BACKGROUND")
-    bg:SetColorTexture(0, 1, 0, 0.5)
+    bg:SetColorTexture(178 / 255, 56 / 255, 5 / 255, 0.5)
     bg:SetAllPoints(bar)
 
     return bar

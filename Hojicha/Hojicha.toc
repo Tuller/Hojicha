@@ -5,7 +5,7 @@
 # ## Interface: 11303
 #@end-non-retail@
 ## Title: Hojicha
-## Notes: A main actionbar replacement
+## Notes: Roasted green tea
 ## Author: Tuller
 ## Version: @project-version@
 ## SavedVariables: HojichaDB
@@ -24,10 +24,13 @@ core/uiParent.lua
 core/bar.lua
 core/buttonBar.lua
 
-# layout DSL
+# layout actions
 dsl/core.lua
 dsl/actionBar.lua
 dsl/bags.lua
+dsl/extra.lua
 dsl/menu.lua
 dsl/pet.lua
 dsl/stance.lua
+# dsl/vehicle.lua
+dsl/zone.lua

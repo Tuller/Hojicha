@@ -36,25 +36,6 @@ local function getOrHook(frame, script, action)
 	end
 end
 
-local function defer(func, delay)
-	delay = delay or 0
-
-	local waiting = false
-
-	local function callback()
-		func()
-		waiting = false
-	end
-
-	return function()
-		if not waiting then
-			waiting = true
-
-			C_Timer.After(delay or 0, callback)
-		end
-	end
-end
-
 local function updateOverrideUIButtons(menuBar)
 	wipe(menuBar.state.overrideUIButtons)
 
