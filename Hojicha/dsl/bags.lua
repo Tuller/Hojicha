@@ -94,8 +94,6 @@ local function getBagCount(state)
 end
 
 local function addBagButtons(bar)
-    wipe(bar.state.buttons)
-
     for i = 1, getBagCount(bar.state) do
         tinsert(bar.state.buttons, getBagButton(bar.state, i))
     end
@@ -104,8 +102,6 @@ end
 do
     local function normalizeButtonSize(button)
         if not button then return end
-
-        button:Hide()
 
         if Addon:IsBuild("Retail") then
             button:SetSize(36, 36)
