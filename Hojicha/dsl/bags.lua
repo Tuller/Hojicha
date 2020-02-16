@@ -94,9 +94,33 @@ local function getBagCount(state)
 end
 
 local function addBagButtons(bar)
+    wipe(bar.state.buttons)
+
     for i = 1, getBagCount(bar.state) do
         tinsert(bar.state.buttons, getBagButton(bar.state, i))
     end
+end
+
+do
+    local function normalizeButtonSize(button)
+        if not button then return end
+
+        button:Hide()
+
+        if Addon:IsBuild("Retail") then
+            button:SetSize(36, 36)
+            button.IconBorder:SetSize(37, 37)
+            button.IconOverlay:SetSize(37, 37)
+            button:GetNormalTexture():SetSize(64, 64)
+        end
+    end
+
+	for slot = (NUM_BAG_SLOTS - 1), 0, -1 do
+		normalizeButtonSize(_G[("CharacterBag%dSlot"):format(slot)])
+    end
+
+    normalizeButtonSize(getOrCreateKeyRingButton())
+    normalizeButtonSize(MainMenuBarBackpackButton)
 end
 
 Addon.Layout.bags = function(options)
