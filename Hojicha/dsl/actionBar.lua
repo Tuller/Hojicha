@@ -1,5 +1,4 @@
 local _, Addon = ...
-local Layout = Addon.Layout
 local ActionButton = Addon.ActionButton
 
 local DEFAULTS = {
@@ -15,7 +14,7 @@ local function addActionButtons(bar)
     end
 end
 
-Layout.actionBar = function(options)
+Addon.Layout.actionBar = function(options)
     options = Addon:CopyDefaults(options, DEFAULTS)
 
     local bar = Addon:CreateButtonBar(options)
@@ -27,4 +26,4 @@ Layout.actionBar = function(options)
     return bar
 end
 
-Layout.ab = Layout.actionBar
+Addon.Layout.ab = Addon.Layout.actionBar

@@ -3,8 +3,6 @@
 		A Dominos action button
 --]]
 local AddonName, Addon = ...
-local KeyBound = LibStub("LibKeyBound-1.0")
-
 local ActionButton, ActionButton_MT = Addon:CreateWidgetClass("CheckButton", Addon.BindableButton)
 local HiddenFrame = Addon:CreateHiddenFrame("Frame")
 
@@ -138,11 +136,6 @@ function ActionButton:Release()
 	self:Hide()
 
 	self.unused[id] = self
-end
-
--- keybound support
-function ActionButton:OnEnter()
-	KeyBound:Set(self)
 end
 
 -- override the old update hotkeys function

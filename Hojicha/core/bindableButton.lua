@@ -6,6 +6,11 @@ local KeyBound = LibStub("LibKeyBound-1.0")
 
 local BindableButton = {}
 
+-- keybound support
+function BindableButton:OnEnter()
+	KeyBound:Set(self)
+end
+
 -- there's a nice assumption here: all hotkey text will use the same naming
 -- convention the call here is wacky because this functionality is actually
 -- called for the blizzard buttons _before_ I'm able to bind the action button
@@ -68,7 +73,7 @@ do
 	end
 end
 
---set bindings (more keybound support)
+-- set bindings (more keybound support)
 function BindableButton:SetKey(key)
 	if self.buttonType then
 		local id = self:GetAttribute("bindingid") or self:GetID()
@@ -78,7 +83,7 @@ function BindableButton:SetKey(key)
 	end
 end
 
---clears all bindings from the button (keybound support again)
+-- clears all bindings from the button (keybound support again)
 do
 	local function clearBindings(...)
 		for i = 1, select("#", ...) do
