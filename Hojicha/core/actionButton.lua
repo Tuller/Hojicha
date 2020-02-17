@@ -1,7 +1,4 @@
---[[
-	Action Button.lua
-		A Dominos action button
---]]
+-- a pool of action buttons
 local AddonName, Addon = ...
 local ActionButton, ActionButton_MT = Addon:CreateWidgetClass("CheckButton", Addon.BindableButton)
 local HiddenFrame = Addon:CreateHiddenFrame("Frame")

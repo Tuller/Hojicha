@@ -5,7 +5,7 @@
 # ## Interface: 11303
 #@end-non-retail@
 ## Title: Hojicha
-## Notes: Roasted green tea
+## Notes: So I read an article about DSLs and decided why not?
 ## Author: Tuller
 ## Version: @project-version@
 ## SavedVariables: HojichaDB
