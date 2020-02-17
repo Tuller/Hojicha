@@ -87,15 +87,9 @@ end
 
 
 function Addon:ApplyStateDriver(frame, state, expr)
+	expr = tostring(expr)
 	expr = self:RewriteConditionalExpression(expr)
 
 	RegisterStateDriver(frame, state, expr)
 	frame:SetAttribute("state-" .. state, SecureCmdOptionParse(expr))
-end
-
-function Addon:RemoveStateDriver(frame, state, default)
-	default = tostring(default)
-
-	RegisterStateDriver(frame, state, default)
-	frame:SetAttribute("state-" .. state, SecureCmdOptionParse(default))
 end

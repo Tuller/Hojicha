@@ -23,18 +23,14 @@ local DEFAULTS = {
 
 local function setVisible(bar, visible)
     bar:SetAttribute("_onstate-visible", [[
-        if newstate then
+        if newstate == "true" then
             self:Show()
         else
             self:Hide()
         end
     ]])
 
-    if type(visible) == "string" then
-        Addon:ApplyStateDriver(bar, "visible", visible)
-    else
-        Addon:RemoveStateDriver(bar, "visible", visible)
-    end
+    Addon:ApplyStateDriver(bar, "visible", visible)
 end
 
 local function setScale(bar, scale)
@@ -42,11 +38,7 @@ local function setScale(bar, scale)
         self:SetScale(newstate)
     ]])
 
-    if type(scale) == "string" then
-        Addon:ApplyStateDriver(bar, "scale", scale)
-    else
-        Addon:RemoveStateDriver(bar, "scale", tonumber(scale) or 1)
-    end
+    Addon:ApplyStateDriver(bar, "scale", scale)
 end
 
 local function setOpacity(bar, opacity)
@@ -54,11 +46,7 @@ local function setOpacity(bar, opacity)
         self:SetAlpha(newstate)
     ]])
 
-    if type(opacity) == "string" then
-        Addon:ApplyStateDriver(bar, "opacity", opacity)
-    else
-        Addon:RemoveStateDriver(bar, "opacity", tonumber(opacity) or 1)
-    end
+    Addon:ApplyStateDriver(bar, "opacity", opacity)
 end
 
 local function setClickThrough(bar, clickThrough)
@@ -66,11 +54,7 @@ local function setClickThrough(bar, clickThrough)
         control:ChildUpdate("clickThrough", newstate)
     ]])
 
-    if type(clickThrough) == "string" then
-        Addon:ApplyStateDriver(bar, "clickThrough", clickThrough)
-    else
-        Addon:RemoveStateDriver(bar, "clickThrough", clickThrough)
-    end
+    Addon:ApplyStateDriver(bar, "clickThrough", clickThrough)
 end
 
 local function setPosition(bar, point, x, y)
@@ -100,13 +84,13 @@ function Addon:CreateBar(options)
     setClickThrough(bar, options.clickThrough)
 
     -- RGBA(178, 56, 5, 1)
-    -- local bg = bar:CreateTexture(nil, "BACKGROUND")
-    -- bg:SetColorTexture(178 / 255, 56 / 255, 5 / 255, 0.5)
-    -- bg:SetAllPoints(bar)
+    local bg = bar:CreateTexture(nil, "BACKGROUND")
+    bg:SetColorTexture(178 / 255, 56 / 255, 5 / 255, 0.5)
+    bg:SetAllPoints(bar)
 
-    -- local fs = bar:CreateFontString(nil, "ARTWORK", "GameFontNormal")
-    -- fs:SetPoint("CENTER")
-    -- fs:SetText(options.id)
+    local fs = bar:CreateFontString(nil, "ARTWORK", "GameFontNormal")
+    fs:SetPoint("CENTER")
+    fs:SetText(options.id)
 
     return bar
 end
