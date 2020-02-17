@@ -29,56 +29,52 @@ local function define(condition, state)
 	end
 end
 
-local function getStateReplacement(match)
-	local state = STATE_MAP[match]
-	if not state then
-		Addon:Printf("Unknown state condition %q", match)
-		return "[page:99]"
+local function getStateReplacement(match, condition, state, terminator)
+	local replacement = STATE_MAP[condition]
+	if not replacement then
+		return ""
 	end
 
-	if type(state) == "function" then
-		local result = state()
-
-		if result then
-			return result
+	if type(replacement) == "function" then
+		replacement = replacement()
+		if not replacement then
+			return ""
 		end
-
-		return "[page:99]"
 	end
 
-	return state
+	return ("[%s]%s%s"):format(replacement, state, terminator)
 end
 
 -- druid
-define("bear", "[bonusbar:3]")
-define("prowl", "[bonusbar:1,stealth]")
-define("cat", "[bonusbar:1]")
+define("bear", "bonusbar:3")
+define("prowl", "bonusbar:1,stealth")
+define("cat", "bonusbar:1")
 
 if Addon:IsBuild("classic") then
 	define("moonkin", 24858)
 	define("travel", 783)
 	define("aquatic", 1066)
 else
-	define("moonkin", "[bonusbar:4]")
+	define("moonkin", "bonusbar:4")
 	define("tree", 114282)
 	define("travel", 783)
 	define("stag", 210053)
 end
 
 -- rogue
-define("shadowdance", "[form:2]")
-define("stealth", "[bonusbar:2]")
+define("shadowdance", "form:2")
+define("stealth", "bonusbar:2")
 
 -- warrior
 if Addon:IsBuild("classic") then
-	define("battle", "[bonusbar:1]")
-	define("defensive", "[bonusbar:2]")
-	define("berserker", "[bonusbar:3]")
+	define("battle", "bonusbar:1")
+	define("defensive", "bonusbar:2")
+	define("berserker", "bonusbar:3")
 end
 
 -- priest
 if Addon:IsBuild("classic") then
-	define("shadowform", "[form:1]")
+	define("shadowform", "form:1")
 end
 
 function Addon:RewriteConditionalExpression(expr)
@@ -86,17 +82,20 @@ function Addon:RewriteConditionalExpression(expr)
 		error(("Usage: %s:RewriteConditionalExpression(\"expr\")"):format(Addon:GetName()), 2)
 	end
 
-	return expr:gsub("%[%$(%a+)%]", getStateReplacement)
+	return expr:gsub("(%[%$(%a+)%]([^;]+)(;*))", getStateReplacement)
 end
 
-function Addon:ApplyStateDriver(frame, state, conditionalExpr)
-	conditionalExpr = self:RewriteConditionalExpression(conditionalExpr)
 
-	RegisterStateDriver(frame, state, conditionalExpr)
-	frame:SetAttribute("state-" .. state, SecureCmdOptionParse(conditionalExpr))
+function Addon:ApplyStateDriver(frame, state, expr)
+	expr = self:RewriteConditionalExpression(expr)
+
+	RegisterStateDriver(frame, state, expr)
+	frame:SetAttribute("state-" .. state, SecureCmdOptionParse(expr))
 end
 
 function Addon:RemoveStateDriver(frame, state, default)
-	UnregisterStateDriver(frame, state)
-	frame:SetAttribute("state-" .. state, default)
+	default = tostring(default)
+
+	RegisterStateDriver(frame, state, default)
+	frame:SetAttribute("state-" .. state, SecureCmdOptionParse(default))
 end

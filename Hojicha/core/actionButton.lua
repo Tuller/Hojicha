@@ -72,8 +72,8 @@ function ActionButton:Create(id)
 		-- we cannot simply keep a button's id at > 0 or blizzard code will
 		-- take control of paging but we need the button's id for the old
 		-- bindings system
-		button:SetID(0)
 		button:SetAttribute("bindingid", button:GetID())
+		button:SetID(0)
 
 		button:SetAttribute("_childupdate-offset", [[
 			local action = self:GetAttribute("action--base") + message

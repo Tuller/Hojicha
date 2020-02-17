@@ -3,8 +3,8 @@ local _, Addon = ...
 -- if we don't have an extra action bar in this client, then quit
 local ExtraActionBarFrame = _G.ExtraActionBarFrame
 if not ExtraActionBarFrame then
-	Addon.Layout.extra = Addon.layout.noop
-	Addon.Layout.extraBar = Addon.layout.noop
+	Addon.Layout.extra = Addon.Layout.noop
+	Addon.Layout.extraBar = Addon.Layout.noop
 	return
 end
 

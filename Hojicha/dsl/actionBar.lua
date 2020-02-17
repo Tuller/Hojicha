@@ -10,7 +10,7 @@ local DEFAULTS = {
 
 local function addActionButtons(bar)
     for i = 1, bar.state.size do
-        local id = i + (NUM_ACTION_BARS * (bar.state.id - 1))
+        local id = i + (NUM_ACTION_BUTTONS_PER_BAR * (bar.state.id - 1))
 
         local button = ActionButton:Acquire(id)
         button:SetAttribute("action--base", i)
@@ -20,14 +20,12 @@ local function addActionButtons(bar)
 end
 
 local function addActionPages(bar)
-    bar:SetAttribute("_onstate-page", [[
-        control:ChildUpdate("offset", 12 * (newstate - 1))
-    ]])
+    bar:SetAttribute("_onstate-page", [[ control:ChildUpdate("offset", 12 * (newstate - 1)) ]])
 
     if bar.state.page then
         Addon:ApplyStateDriver(bar, "page", bar.state.page)
     else
-        Addon:RemoveStateDriver(bar, "page", bar.state.id)
+        Addon:ApplyStateDriver(bar, "page", bar.id)
     end
 end
 
