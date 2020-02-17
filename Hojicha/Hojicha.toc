@@ -23,6 +23,7 @@ core/actionButton.lua
 core/uiParent.lua
 core/bar.lua
 core/buttonBar.lua
+core/states.lua
 
 # layout actions
 dsl/core.lua

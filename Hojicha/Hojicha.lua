@@ -7,7 +7,11 @@ local AddonName, Addon = ...
 
 function Addon:OnEnable()
 	self:Layout([[
-		ab { id = 1, point = "BOTTOM" },
+		ab {
+			id = 1,
+			point = "BOTTOM",
+			page = "[$cat]7;[$tree]8;[$bear]9;[$moonkin]10;1"
+		},
 		ab { id = 2, point = "BOTTOM", y = 38 },
 		ab { id = 3, columns = 1, point = "RIGHT" },
 		ab { id = 4, columns = 1, point = "RIGHT", x = -38 },
@@ -117,3 +121,6 @@ end
 
 -- make this an ace addon
 LibStub("AceAddon-3.0"):NewAddon(Addon, AddonName, "AceEvent-3.0", "AceConsole-3.0")
+
+-- give ourselves a global
+_G[AddonName] = Addon

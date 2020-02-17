@@ -41,26 +41,7 @@ function ActionButton:Acquire(id)
 
 	if button then
 		button:SetAttribute("showgrid", 0)
-		button:SetAttribute("action--base", id)
-		button:SetAttribute(
-			"_childupdate-action",
-			[[
-				local state = message
-				local overridePage = self:GetParent():GetAttribute('state-overridepage')
-				local newActionID
-
-				if state == 'override' then
-					newActionID = (self:GetAttribute('button--index') or 1) + (overridePage - 1) * 12
-				else
-					newActionID = state and self:GetAttribute('action--' .. state) or self:GetAttribute('action--base')
-				end
-
-				if newActionID ~= self:GetAttribute('action') then
-					self:SetAttribute('action', newActionID)
-					self:CallMethod('UpdateState')
-				end
-			]]
-		)
+		-- button:SetAttribute("action--index", id)
 
 		-- Addon.BindingsController:Register(button, button:GetName():match(AddonName .. 'ActionButton%d'))
 		-- Addon:GetModule('Tooltips'):Register(button)
@@ -91,13 +72,21 @@ function ActionButton:Create(id)
 		-- we cannot simply keep a button's id at > 0 or blizzard code will
 		-- take control of paging but we need the button's id for the old
 		-- bindings system
-		button:SetAttribute("bindingid", button:GetID())
 		button:SetID(0)
+		button:SetAttribute("bindingid", button:GetID())
 
-		button:ClearAllPoints()
-		button:SetAttribute("useparent-actionpage", nil)
-		button:SetAttribute("useparent-unit", true)
+		button:SetAttribute("_childupdate-offset", [[
+			local action = self:GetAttribute("action--base") + message
+
+			if self:GetAttribute("action") ~= action then
+				self:SetAttribute("action", action)
+				self:CallMethod("UpdateState")
+			end
+		]])
+
 		button:SetAttribute("statehidden", nil)
+		button:SetAttribute("useparent-actionpage", nil)
+
 		button:EnableMouseWheel(true)
 		button:HookScript("OnEnter", self.OnEnter)
 
@@ -281,13 +270,13 @@ function ActionButton:UpdateShowEquippedItemBorders()
 end
 
 -- utility function, resyncs the button's current action, modified by state
-function ActionButton:LoadAction()
-	local state = self:GetParent():GetAttribute("state-page")
+-- function ActionButton:LoadAction()
+-- 	local state = self:GetParent():GetAttribute("state-page")
 
-	local id = state and self:GetAttribute("action--" .. state) or self:GetAttribute("action--base")
+-- 	local id = state and self:GetAttribute("action--" .. state) or self:GetAttribute("action--base")
 
-	self:SetAttribute("action", id)
-end
+-- 	self:SetAttribute("action", id)
+-- end
 
 function ActionButton:ForAll(method, ...)
 	if type(method) ~= "string" then
